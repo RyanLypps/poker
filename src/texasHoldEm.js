@@ -14,6 +14,9 @@ let TexasHoldEm = class {
         this.boardCards = [];
         this.potOfChips = [];
 
+        // Value of bet
+        this.betValue = 0;
+
         // Puts players in the same room
         this.players.push(new Player());
         this.players.push(new Player());
@@ -82,7 +85,7 @@ let TexasHoldEm = class {
         select.setAttribute("id", "values");
         select.onchange = () => {
             let selectOptions = document.getElementById('values').value;
-            console.log(selectOptions);
+            this.betValue = selectOptions;
         }
 
         let body = document.getElementsByTagName("body")[0];
@@ -148,8 +151,8 @@ let TexasHoldEm = class {
                 playerOne.disabled = !playerOne.disabled;
                 playerTwo.disabled = !playerOne.disabled;
 
-                let check = this.players[0].chips[0] - 5;
-                this.potOfChips.push(check);
+                let check = this.players[0].chips[0] - this.betValue;
+                this.potOfChips.push(this.betValue);
                 this.players[0].chips.push(check);
                 this.players[0].chips.splice(0, 1);
             }
@@ -173,8 +176,8 @@ let TexasHoldEm = class {
                 playerTwo.disabled = !playerTwo.disabled;
                 playerOne.disabled = !playerOne.disabled;
 
-                let check = this.players[1].chips[0] - 5;
-                this.potOfChips.push(check);
+                let check = this.players[1].chips[0] - this.betValue;
+                this.potOfChips.push(this.betValue);
                 this.players[1].chips.push(check);
                 this.players[1].chips.splice(0, 1);
             }
