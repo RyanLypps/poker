@@ -1,8 +1,6 @@
-
 const Deck = require('./deck');
 const Player = require('./player');
 const Chips = require('./chips');
-
 
 let TexasHoldEm = class {
     constructor() {
@@ -14,6 +12,7 @@ let TexasHoldEm = class {
         // Gets the players/Community and stores them
         this.players = [];
         this.boardCards = [];
+        this.potOfChips = [];
 
         // Puts players in the same room
         this.players.push(new Player());
@@ -44,8 +43,12 @@ let TexasHoldEm = class {
         this.playerCheckButton1();
         this.playerCheckButton2();
 
+        // Makes select menu for values
+        this.playerOneValueOptions();
+
         // disables player two's button
         this.playerTwosCheck();
+
 
     }
 
@@ -74,10 +77,59 @@ let TexasHoldEm = class {
         this.players[0].isTurn = true;
     }
 
+    playerOneValueOptions() {
+        let select = document.createElement("select");
+        select.setAttribute("id", "values");
+        select.onchange = () => {
+            let selectOptions = document.getElementById('values').value;
+            console.log(selectOptions);
+        }
+
+        let body = document.getElementsByTagName("body")[0];
+        body.appendChild(select);
+
+        let option = document.createElement("option");
+        option.innerHTML = "Select a Value";
+
+        let option1 = document.createElement("option");
+        option1.value = 1;
+        option1.innerHTML = "One";
+
+        let option2 = document.createElement("option");
+        option2.value = 2;
+        option2.innerHTML = "Two";
+
+        let option3 = document.createElement("option");
+        option3.value = 3;
+        option3.innerHTML = "Three";
+
+        let option4 = document.createElement("option");
+        option4.value = 5;
+        option4.innerHTML = "Five";
+
+        let option5 = document.createElement("option");
+        option5.value = 10;
+        option5.innerHTML = "Ten";
+
+        let option6 = document.createElement("option");
+        option6.value = 25;
+        option6.innerHTML = "Twenty-Five";
+
+        select.appendChild(option);
+        select.appendChild(option1);
+        select.appendChild(option2);
+        select.appendChild(option3);
+        select.appendChild(option4);
+        select.appendChild(option5);
+        select.appendChild(option6);
+
+    }
+
     playerTwosCheck() {
         let playerTwo = document.getElementById('player-two');
         playerTwo.setAttribute('disabled', '');
     }
+
 
     playerCheckButton1() {
         let button1 = document.createElement("button");
@@ -97,9 +149,9 @@ let TexasHoldEm = class {
                 playerTwo.disabled = !playerOne.disabled;
 
                 let check = this.players[0].chips[0] - 5;
+                this.potOfChips.push(check);
                 this.players[0].chips.push(check);
                 this.players[0].chips.splice(0, 1);
-                console.log(this.players[0].chips);
             }
         });
     }
@@ -122,9 +174,9 @@ let TexasHoldEm = class {
                 playerOne.disabled = !playerOne.disabled;
 
                 let check = this.players[1].chips[0] - 5;
+                this.potOfChips.push(check);
                 this.players[1].chips.push(check);
                 this.players[1].chips.splice(0, 1);
-                console.log(this.players[1].chips);
             }
         });
     }
