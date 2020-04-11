@@ -14,7 +14,7 @@ let TexasHoldEm = class {
         this.boardCards = [];
         this.potOfChips = [];
 
-        // Value of bet
+        // Value of bet for chips
         this.betValue = 0;
 
         // Puts players in the same room
